@@ -10,12 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_03_180623) do
+ActiveRecord::Schema.define(version: 2021_06_03_181002) do
 
   create_table "departments", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "offer_departments", force: :cascade do |t|
+    t.integer "offer_id", null: false
+    t.integer "department_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["department_id"], name: "index_offer_departments_on_department_id"
+    t.index ["offer_id"], name: "index_offer_departments_on_offer_id"
   end
 
   create_table "offers", force: :cascade do |t|
@@ -32,4 +41,6 @@ ActiveRecord::Schema.define(version: 2021_06_03_180623) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "offer_departments", "departments"
+  add_foreign_key "offer_departments", "offers"
 end
