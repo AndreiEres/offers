@@ -10,5 +10,8 @@ RSpec.describe Department, type: :model do
   describe 'associations' do
     it { is_expected.to have_many(:offer_departments) }
     it { is_expected.to have_many(:offers) }
+
+    it { is_expected.to have_many(:user_departments) }
+    it { is_expected.to have_many(:users) }
   end
 end
