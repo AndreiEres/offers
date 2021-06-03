@@ -1,8 +1,23 @@
 # frozen_string_literal: true
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+
+require 'csv'
+
+CSV.foreach(Rails.root.join('db/seed_data/users.csv')) do |row|
+  User.create(id: row[0], name: row[1], company: row[2])
+end
+
+CSV.foreach(Rails.root.join('db/seed_data/departments.csv')) do |row|
+  Department.create(id: row[0], name: row[1])
+end
+
+CSV.foreach(Rails.root.join('db/seed_data/offers.csv')) do |row|
+  Offer.create(id: row[0], price: row[1], company: row[2])
+end
+
+CSV.foreach(Rails.root.join('db/seed_data/offer_departments.csv')) do |row|
+  OfferDepartment.create(id: row[0], offer_id: row[1], department_id: row[2])
+end
+
+CSV.foreach(Rails.root.join('db/seed_data/user_departments.csv')) do |row|
+  UserDepartment.create(id: row[0], user_id: row[1], department_id: row[2])
+end
