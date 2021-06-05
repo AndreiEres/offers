@@ -12,4 +12,14 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_many(:user_departments) }
     it { is_expected.to have_many(:departments) }
   end
+
+  describe '#department_names' do
+    subject { user.department_names }
+
+    let(:user) { create(:user) }
+
+    before { user.departments << create(:department, name: 'IT') }
+
+    it { is_expected.to eq(%w[IT]) }
+  end
 end

@@ -5,4 +5,8 @@ class User < ApplicationRecord
 
   has_many :user_departments, dependent: :destroy
   has_many :departments, through: :user_departments
+
+  def department_names
+    departments.pluck(:name)
+  end
 end
