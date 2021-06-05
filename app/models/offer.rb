@@ -7,6 +7,7 @@ class Offer < ApplicationRecord
   has_many :departments, through: :offer_departments
 
   scope :match_company, ->(company) { where(company: company) }
+  scope :not_match_company, ->(company) { where.not(company: company) }
   scope :match_department_names, lambda { |department_names|
     joins(:departments).where(departments: { name: department_names })
   }

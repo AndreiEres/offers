@@ -31,6 +31,24 @@ RSpec.describe Offer, type: :model do
     end
   end
 
+  describe '.not_match_company' do
+    subject { described_class.not_match_company(company) }
+
+    let(:offer) { create(:offer, company: 'Apple') }
+
+    context 'when offer with the company exists' do
+      let(:company) { 'Apple' }
+
+      it { is_expected.to eq([]) }
+    end
+
+    context 'when offer with the company does not exist' do
+      let(:company) { 'Google' }
+
+      it { is_expected.to eq([offer]) }
+    end
+  end
+
   describe '.match_departments' do
     subject { described_class.match_department_names(department_names) }
 
