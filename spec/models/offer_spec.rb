@@ -52,4 +52,26 @@ RSpec.describe Offer, type: :model do
       it { is_expected.to eq([]) }
     end
   end
+
+  describe '.not_match_departments' do
+    subject { described_class.not_match_department_names(department_names) }
+
+    let(:offer) { create(:offer) }
+
+    before do
+      offer.departments << create(:department, name: 'IT')
+    end
+
+    context 'when offer with at least one department exists' do
+      let(:department_names) { %w[IT Accounting] }
+
+      it { is_expected.to eq([]) }
+    end
+
+    context 'when offer with the departments does not exist' do
+      let(:department_names) { %w[Management Sales] }
+
+      it { is_expected.to eq([offer]) }
+    end
+  end
 end

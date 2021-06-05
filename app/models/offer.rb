@@ -10,4 +10,7 @@ class Offer < ApplicationRecord
   scope :match_department_names, lambda { |department_names|
     joins(:departments).where(departments: { name: department_names })
   }
+  scope :not_match_department_names, lambda { |department_names|
+    joins(:departments).where.not(departments: { name: department_names })
+  }
 end
