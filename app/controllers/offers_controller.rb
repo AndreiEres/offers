@@ -2,7 +2,7 @@
 
 class OffersController < ApplicationController
   def index
-    ids = OfferIdsForUserService.new.call(user: user)
+    ids = OfferIdsForUserService.new.call(user: user, params: params)
     pagy, records = pagy(Offer.by_ids(ids[:all]))
 
     render json: {

@@ -11,7 +11,7 @@ RSpec.describe OfferIdsForUserService do
           good_match_ids: good_match_ids,
           other_ids: other_ids
         )
-        .call(user: user)
+        .call(user: user, params: {})
     end
 
     let(:perfect_match_ids) { instance_double(OfferIdsFromQueryService) }
@@ -20,9 +20,9 @@ RSpec.describe OfferIdsForUserService do
     let(:user) { instance_double(User) }
 
     before do
-      allow(perfect_match_ids).to receive(:call).with(user: user).and_return([100])
-      allow(good_match_ids).to receive(:call).with(user: user).and_return([200])
-      allow(other_ids).to receive(:call).with(user: user).and_return([1000])
+      allow(perfect_match_ids).to receive(:call).with(user: user, params: {}).and_return([100])
+      allow(good_match_ids).to receive(:call).with(user: user, params: {}).and_return([200])
+      allow(other_ids).to receive(:call).with(user: user, params: {}).and_return([1000])
     end
 
     it { is_expected.to eq({ perfect_match: [100], good_match: [200], other: [1000], all: [100, 200, 1000] }) }

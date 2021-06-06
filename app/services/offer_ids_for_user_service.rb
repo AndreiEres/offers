@@ -13,10 +13,10 @@ class OfferIdsForUserService
     @other_ids = other_ids
   end
 
-  def call(user:)
-    perfect_match = perfect_match_ids.call(user: user)
-    good_match = good_match_ids.call(user: user)
-    other = other_ids.call(user: user)
+  def call(user:, params: {})
+    perfect_match = perfect_match_ids.call(user: user, params: params)
+    good_match = good_match_ids.call(user: user, params: params)
+    other = other_ids.call(user: user, params: params)
 
     {
       perfect_match: perfect_match,
