@@ -129,4 +129,28 @@ RSpec.describe Offer, type: :model do
 
     it { is_expected.to eq([offer]) }
   end
+
+  describe '.from_external_api' do
+    subject { described_class.from_external_api }
+
+    let(:offer) { create(:offer, from_external_api: true) }
+
+    before do
+      create(:offer)
+    end
+
+    it { is_expected.to eq([offer]) }
+  end
+
+  describe '.not_from_external_api' do
+    subject { described_class.not_from_external_api }
+
+    let(:offer) { create(:offer) }
+
+    before do
+      create(:offer, from_external_api: true)
+    end
+
+    it { is_expected.to eq([offer]) }
+  end
 end

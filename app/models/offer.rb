@@ -23,4 +23,6 @@ class Offer < ApplicationRecord
   }
   scope :company_like, ->(query) { where('LOWER(company) LIKE ?', "%#{query&.downcase}%") }
   scope :by_department_ids, ->(ids) { joins(:departments).where(departments: { id: ids }) }
+  scope :from_external_api, -> { where(from_external_api: true) }
+  scope :not_from_external_api, -> { where.not(from_external_api: true) }
 end
