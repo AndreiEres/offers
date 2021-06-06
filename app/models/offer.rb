@@ -14,5 +14,11 @@ class Offer < ApplicationRecord
   scope :not_match_department_names, lambda { |department_names|
     joins(:departments).where.not(departments: { name: department_names })
   }
-  scope :by_ids, ->(ids) { where(id: ids) }
+  scope :by_ids, lambda { |ids|
+    clause_by_id = ids.each_with_index.map { |id, i| sanitize_sql_array(['WHEN ? THEN ? ', id, i]) }.join
+    else_clause = sanitize_sql_array(['ELSE ? END', ids.length])
+    order_clause = "CASE id #{clause_by_id}#{else_clause}"
+
+    where(id: ids).order(Arel.sql(order_clause))
+  }
 end

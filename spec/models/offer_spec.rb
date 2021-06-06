@@ -96,9 +96,10 @@ RSpec.describe Offer, type: :model do
   describe '.by_ids' do
     subject { described_class.by_ids(ids) }
 
-    let(:offers) { create_list(:offer, 2) }
-    let(:ids) { [offers.first.id] }
+    let(:offers) { create_list(:offer, 5) }
+    let(:ids) { result.map(&:id) }
+    let(:result) { [offers[4], offers[1], offers[3]] }
 
-    it { is_expected.to eq([offers.first]) }
+    it { is_expected.to eq(result) }
   end
 end
