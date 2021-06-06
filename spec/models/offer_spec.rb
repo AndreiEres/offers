@@ -92,4 +92,13 @@ RSpec.describe Offer, type: :model do
       it { is_expected.to eq([offer]) }
     end
   end
+
+  describe '.by_ids' do
+    subject { described_class.by_ids(ids) }
+
+    let(:offers) { create_list(:offer, 2) }
+    let(:ids) { [offers.first.id] }
+
+    it { is_expected.to eq([offers.first]) }
+  end
 end
