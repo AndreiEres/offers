@@ -21,4 +21,6 @@ class Offer < ApplicationRecord
 
     where(id: ids).order(Arel.sql(order_clause))
   }
+  scope :company_like, ->(query) { where('LOWER(company) LIKE ?', "%#{query&.downcase}%") }
+  scope :by_department_ids, ->(ids) { joins(:departments).where(departments: { id: ids }) }
 end

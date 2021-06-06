@@ -102,4 +102,31 @@ RSpec.describe Offer, type: :model do
 
     it { is_expected.to eq(result) }
   end
+
+  describe '.company_like' do
+    subject { described_class.company_like(query) }
+
+    let(:query) { 'AP' }
+    let(:offer) { create(:offer, company: 'Apple') }
+
+    before do
+      create(:offer, company: 'Google')
+    end
+
+    it { is_expected.to eq([offer]) }
+  end
+
+  describe '.by_department_ids' do
+    subject { described_class.by_department_ids(ids) }
+
+    let(:ids) { [42] }
+    let(:offer) { create(:offer) }
+
+    before do
+      offer.departments << create(:department, id: 42)
+      create(:offer, company: 'Google')
+    end
+
+    it { is_expected.to eq([offer]) }
+  end
 end
